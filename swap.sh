@@ -1,5 +1,5 @@
 SWAP_FOLDER="/swapfile"
-if grep -Fxq "$SWAP_FOLDER" /etc/fstab
+if grep -Fxq $SWAP_FOLDER /etc/fstab
 then
     echo "swaped"
 else
