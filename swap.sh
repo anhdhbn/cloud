@@ -7,7 +7,6 @@ else
     sudo chmod 600 $SWAP_FOLDER
     sudo mkswap $SWAP_FOLDER
     sudo swapon $SWAP_FOLDER
-    sudo bash -c 'echo "$SWAP_FOLDER none swap sw 0 0" >> /etc/fstab'
     echo "$SWAP_FOLDER none swap sw 0 0" | sudo tee -a /etc/fstab
     sudo reboot
 fi
