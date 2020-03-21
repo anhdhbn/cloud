@@ -18,13 +18,10 @@ sudo systemctl start docker
 sudo systemctl enable docker
 sudo groupadd docker
 sudo usermod -aG docker $USER
-newgrp docker 
 
 # install kind
-curl -Lo ./kind "https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64"
-chmod +x ./kind
+sudo curl -Lo ./kind "https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64"
+sudo chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
-echo "Kind was installed"
 
-# run kind
-kind create cluster
+newgrp docker
