@@ -1,6 +1,6 @@
 # /bin/bash
 SWAP_FOLDER="/swapfile"
-if grep -Fxq $SWAP_FOLDER /etc/fstab
+if grep -q "$SWAP_FOLDER" /etc/fstab
 then
   echo "$SWAP_FOLDER was swaped"
 else
@@ -20,8 +20,11 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker 
 
+# install kind
 curl -Lo ./kind "https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64"
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
+echo "Kind was installed"
 
+# run kind
 kind create cluster
