@@ -13,7 +13,7 @@ fi
 
 # install docker
 sudo apt-get update
-sudo apt install docker.io -y
+sudo apt install -y docker.io 
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo groupadd docker
@@ -28,7 +28,7 @@ sudo apt-get install -y kubectl
 
 # install virtualbox
 sudo add-apt-repository multiverse && sudo apt-get update
-sudo apt install virtualbox -y
+sudo apt install -y virtualbox 
 
 # install minikube
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
