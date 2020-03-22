@@ -3,17 +3,17 @@ sudo apt-get update
 sudo apt install -y software-properties-common
 
 # swap 
-# SWAP_FOLDER="/swapfile"
-# if grep -q "$SWAP_FOLDER" /etc/fstab
-# then
-#   echo "$SWAP_FOLDER was swaped"
-# else
-#   sudo fallocate -l 4G $SWAP_FOLDER
-#   sudo chmod 600 $SWAP_FOLDER
-#   sudo mkswap $SWAP_FOLDER
-#   sudo swapon $SWAP_FOLDER
-#   echo "$SWAP_FOLDER none swap sw 0 0" | sudo tee -a /etc/fstab
-# fi
+SWAP_FOLDER="/swapfile"
+if grep -q "$SWAP_FOLDER" /etc/fstab
+then
+  echo "$SWAP_FOLDER was swaped"
+else
+  sudo fallocate -l 4G $SWAP_FOLDER
+  sudo chmod 600 $SWAP_FOLDER
+  sudo mkswap $SWAP_FOLDER
+  sudo swapon $SWAP_FOLDER
+  echo "$SWAP_FOLDER none swap sw 0 0" | sudo tee -a /etc/fstab
+fi
 
 # install docker $(lsb_release -cs)
 DEB_DOCKER="deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
