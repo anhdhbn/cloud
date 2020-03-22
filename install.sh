@@ -16,7 +16,7 @@ sudo apt install -y software-properties-common
 # fi
 
 # install docker $(lsb_release -cs)
-DEB_DOCKER="deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+DEB_DOCKER="deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release –cs) stable"
 sudo apt-get remove -y docker* containerd*
 sudo apt autoremove
 sudo apt-get update
