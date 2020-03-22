@@ -44,7 +44,7 @@ else
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
   echo "$DEB_KUBECTL" | sudo tee -a "$DEB_KUBECTL_FOLDER"
   sudo apt-get update
-  sudo apt-get install -y kubectl
+  sudo apt-get install -y kubeadm kubectl kubelet
 fi
 
 # install virtualbox
