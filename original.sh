@@ -34,7 +34,4 @@ sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
 
 
-newgrp docker << EOF
-sudo minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=none
-EOF
-
+sudo -g docker minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=none

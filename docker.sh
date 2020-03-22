@@ -24,7 +24,7 @@ then
 else
   echo "$DEB_KUBECTL" | sudo tee -a "$DEB_KUBECTL_FOLDER"
   sudo apt-get update
-  sudo apt-get install -y kubectl socat docker.io
+  sudo apt-get install -y kubeadm kubectl socat docker.io
 fi
 
 # install minikube
@@ -34,6 +34,4 @@ sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
 
 
-newgrp docker << EOF
-sudo minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=docker --cpus=1
-EOF
+sudo -g docker minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=docker --cpus=1
