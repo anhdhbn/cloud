@@ -15,23 +15,22 @@ else
   echo "$SWAP_FOLDER none swap sw 0 0" | sudo tee -a /etc/fstab
 fi
 
-# install docker
-if docker --version | grep "Docker version"
-then
-  echo "Docker was installed"
-  # sudo apt-get remove docker docker-engine docker.io
-else
-  sudo apt-get update
-  sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  sudo apt-get update
-  sudo apt-get install -y docker-ce
-  sudo systemctl start docker
-  sudo systemctl enable docker
-  sudo groupadd docker
-  sudo usermod -aG docker $USER
+# install docker $(lsb_release -cs)
+DEB_DOCKER="deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+sudo apt-get remove -y docker* containerd*
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+if ! grep -q "$DEB_DOCKER" /etc/apt/sources.list ; then
+  sudo add-apt-repository "$DEB_DOCKER"
 fi
+sudo apt-get update
+sudo apt install -y docker-ce docker-ce-cli containerd.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo groupadd docker
+sudo usermod -aG docker $USER
 
 # install kubectl
 DEB_KUBECTL="deb https://apt.kubernetes.io/ kubernetes-xenial main"
@@ -48,8 +47,12 @@ else
 fi
 
 # install virtualbox
+DEB_VIRTUALBOX="deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian xenial contrib"
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+sudo add-apt-repository $DEB_VIRTUALBOX
+if ! grep -q "$DEB_VIRTUALBOX" /etc/apt/sources.list ; then
+  sudo add-apt-repository "$DEB_VIRTUALBOX"
+fi
 sudo apt update && sudo apt install -y virtualbox-6.0
 
 # install minikube
