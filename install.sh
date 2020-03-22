@@ -42,7 +42,7 @@ fi
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 sudo apt install -y software-properties-common
 sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
-sudo apt update && sudo apt install virtualbox-6.0
+sudo apt update && sudo apt install -y virtualbox-6.0
 
 # install minikube
 curl -Lo minikube "https://storage.googleapis.com/minikube/releases/latest/minikube-$(uname)-amd64" \
