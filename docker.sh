@@ -34,4 +34,4 @@ sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
 
 
-sudo -g docker minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=docker --cpus=1
+sudo minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=docker --cpus=1
