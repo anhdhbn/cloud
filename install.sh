@@ -27,11 +27,12 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 
 # install virtualbox
+sudo apt install -y software-properties-common
 sudo add-apt-repository multiverse && sudo apt-get update
 sudo apt install -y virtualbox 
 
 # install minikube
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+curl -Lo minikube "https://storage.googleapis.com/minikube/releases/latest/minikube-$(uname)-amd64" \
   && chmod +x minikube
 sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
