@@ -16,7 +16,7 @@ sudo apt install -y software-properties-common
 # fi
 
 # install docker $(lsb_release -cs)
-DEB_DOCKER="deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release –cs) stable"
+DEB_DOCKER="deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 sudo apt-get remove -y docker* containerd*
 sudo apt autoremove
 sudo apt-get update
@@ -51,7 +51,7 @@ else
 fi
 
 # install virtualbox
-DEB_VIRTUALBOX="deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+DEB_VIRTUALBOX="deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bionic contrib"
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 sudo add-apt-repository $DEB_VIRTUALBOX
 if ! grep -q "$DEB_VIRTUALBOX" /etc/apt/sources.list ; then
@@ -69,5 +69,9 @@ sudo install minikube /usr/local/bin/
 sudo curl -Lo ./kind "https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64"
 sudo chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
+
+# install microk8s
+sudo snap install microk8s --classic
+sudo usermod -a -G microk8s $USER
 
 newgrp docker
