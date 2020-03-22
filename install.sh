@@ -12,22 +12,35 @@ else
 fi
 
 # install docker
-sudo apt-get update
-sudo apt install -y docker.io 
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo groupadd docker
-sudo usermod -aG docker $USER
+if docker --version | grep "Docker version"
+then
+  echo "Docker was installed"
+else
+  sudo apt-get update
+  sudo apt install -y docker.io 
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+fi
 
 # install kubectl
-sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubectl
+DEB_KUBECTL="deb https://apt.kubernetes.io/ kubernetes-xenial main"
+DEB_KUBECTL_FOLDER="/etc/apt/sources.list.d/kubernetes.list"
+if grep -q "$DEB_KUBECTL" "$DEB_KUBECTL_FOLDER"
+then
+  echo "Deb kubectl was added"
+else
+  sudo apt-get update && sudo apt-get install -y apt-transport-https
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  echo "$DEB_KUBECTL" | sudo tee -a "$DEB_KUBECTL_FOLDER"
+  sudo apt-get update
+  sudo apt-get install -y kubectl
+fi
 
 # install virtualbox
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+sudo apt install -y software-properties-common
 sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
 sudo apt update && sudo apt install virtualbox-6.0
 
