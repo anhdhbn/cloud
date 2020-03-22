@@ -24,7 +24,7 @@ then
 else
   echo "$DEB_KUBECTL" | sudo tee -a "$DEB_KUBECTL_FOLDER"
   sudo apt-get update
-  sudo apt-get install -y kubeadm kubectl socat docker.io
+  sudo apt-get install -y kubeadm kubectl docker.io
 fi
 
 # install minikube

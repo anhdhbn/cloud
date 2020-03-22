@@ -27,20 +27,9 @@ else
   sudo apt-get install -y kubectl docker.io
 fi
 
-# install minikube
-curl -Lo minikube "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64" \
-  && chmod +x minikube
-sudo mkdir -p /usr/local/bin/
-sudo install minikube /usr/local/bin/
+# install kind
+sudo curl -Lo ./kind "https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64"
+sudo chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
 
-
-# install virtualbox
-DEB_VIRTUALBOX="deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bionic contrib"
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-sudo add-apt-repository $DEB_VIRTUALBOX
-if ! grep -q "$DEB_VIRTUALBOX" /etc/apt/sources.list ; then
-  sudo add-apt-repository "$DEB_VIRTUALBOX"
-fi
-sudo apt update && sudo apt install -y virtualbox-6.0
-
-sudo minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=virtualbox --cpus=1
+sudo kind create cluster
