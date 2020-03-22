@@ -34,6 +34,9 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 
 # install kubectl
+# curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+# chmod +x ./kubectl
+# sudo mv ./kubectl /usr/local/bin/kubectl
 DEB_KUBECTL="deb https://apt.kubernetes.io/ kubernetes-xenial main"
 DEB_KUBECTL_FOLDER="/etc/apt/sources.list.d/kubernetes.list"
 if grep -q "$DEB_KUBECTL" "$DEB_KUBECTL_FOLDER"
