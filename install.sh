@@ -48,7 +48,7 @@ else
 fi
 
 # install virtualbox
-DEB_VIRTUALBOX="deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian xenial contrib"
+DEB_VIRTUALBOX="deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 sudo add-apt-repository $DEB_VIRTUALBOX
 if ! grep -q "$DEB_VIRTUALBOX" /etc/apt/sources.list ; then
