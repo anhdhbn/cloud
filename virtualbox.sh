@@ -43,6 +43,4 @@ if ! grep -q "$DEB_VIRTUALBOX" /etc/apt/sources.list ; then
 fi
 sudo apt update && sudo apt install -y virtualbox-6.0
 
-newgrp docker << EOF
 sudo minikube start  --v=7 --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --no-vtx-check --wait=false --driver=virtualbox --cpus=1
-EOF
