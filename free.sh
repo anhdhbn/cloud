@@ -15,8 +15,12 @@ fi
 
 
 PublicIP=$(curl --silent ifconfig.me)
+echo "Public IP: $PublicIP"
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--tls-san $PublicIP" sh -s -
-
+mkdir -p ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo sed -i "s/127\.0\.0\.1/$PublicIP/g" ~/.kube/config
+sudo chmod 755 ~/.kube/config
 echo "Done!"
 
 # dashboard
