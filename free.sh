@@ -13,5 +13,16 @@ else
   echo "$SWAP_FOLDER none swap sw 0 0" | sudo tee -a /etc/fstab
 fi
 
-curl -sfL https://get.k3s.io | sh -
-sudo kubectl get nodes
+
+PublicIP=$(curl --silent ifconfig.me)
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--tls-san $PublicIP" sh -s -
+
+echo "Done!"
+
+# dashboard
+# GITHUB_URL=https://github.com/kubernetes/dashboard/releases
+# VERSION_KUBE_DASHBOARD=$(curl -w '%{url_effective}' -I -L -s -S ${GITHUB_URL}/latest -o /dev/null | sed -e 's|.*/||')
+# sudo k3s kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/${VERSION_KUBE_DASHBOARD}/aio/deploy/recommended.yaml -f dashboard.admin-user.yml -f dashboard.admin-user-role.yml
+
+
+# sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
