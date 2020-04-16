@@ -21,6 +21,7 @@ mkdir -p ~/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 sudo sed -i "s/127\.0\.0\.1/$PublicIP/g" ~/.kube/config
 sudo chmod 755 ~/.kube/config
+sudo chmod 755 /etc/rancher/k3s/k3s.yaml
 echo "Done!"
 
 # dashboard
